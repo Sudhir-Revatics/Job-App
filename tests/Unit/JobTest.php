@@ -16,3 +16,9 @@ it('example', function () {
     expect($job->employer()->is($employer))->toBeTrue;
 
 });
+
+it('can have tags', function () {
+   $job = Job::factory()->create();
+   $job->tag();
+   expect($job->tags)->toHaveCount(1);
+});
