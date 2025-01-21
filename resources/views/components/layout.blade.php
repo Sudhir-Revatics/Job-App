@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-white font-hanken-grotesk">
+<body class="bg-black text-white font-hanken-grotesk pb-20">
 
     <div class="px-10">
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
@@ -26,7 +27,24 @@
                 <a href="">Salaries</a>
                 <a href="">Company</a>
             </div>
-            <div><a href="">Post a Job</a></div>
+            @auth
+                <div class="space-x-6 font-bold flex">
+                    <a href="jobs/create">Post a Job</a>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Log Out</button>
+                    </form>
+                </div>
+            @endauth
+
+            @guest
+                <div class="space-x-6 font-bold">
+                    <a href="/login">Log In</a>
+                    <a href="/register">Register</a>
+
+                </div>
+            @endguest
         </nav>
         <main class="mt-10 max-w-[986px] mx-auto">
             {{$slot}}
